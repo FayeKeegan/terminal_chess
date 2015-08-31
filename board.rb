@@ -49,6 +49,7 @@ class Board
 
   def dup
     duped_board = Board.new(@game)
+    duped_board.current_player = @game.current_player
     grid.each_with_index do |row, row_idx|
       row.each_with_index do |square, square_idx|
         duped_board[row_idx,square_idx] = square.dup(duped_board) unless square.empty?
@@ -78,8 +79,9 @@ class Board
 
   def my_king
     king = grid.flatten.select do |square|
-      square.king? && square.color == @game.current_player
+      square.king? && square.color == current_player
     end
+    # debugger
     king.first.pos
   end
 
@@ -98,11 +100,11 @@ class Board
   end
 
   def other_color
-    @game.current_player == :white ? :black : :white
+    current_player == :white ? :black : :white
   end
 
   def valid_selection?
-    selected_piece.piece? && selected_piece.color == @game.current_player
+    selected_piece.piece? && selected_piece.color == current_player
   end
 
   def valid_end_pos?(end_pos)
@@ -113,7 +115,7 @@ class Board
     (i + j).even? ? :white : :gray
   end
 
-    def render
+  def render
     system "clear"
     puts "MOVE CURSOR:      W ↑  |  A ←  |  S →  |  D  ↓  |"
     puts "SELECT PIECE:     enter"
@@ -143,6 +145,17 @@ class Board
     selected_piece.nil? ? [] : self.selected_piece.valid_moves
   end
 
+  def put_into_check?(start_pos, end_pos)
+    duped_board = dup
+    duped_board.place_piece(start_pos, end_pos)
+    duped_board.current_player = other_color
+    if duped_board.in_check?
+      puts "OTHER PLAYER IN CHECK"
+      return true
+    else
+      return false
+    end
+  end
 
   def move_into_check?(start_pos, end_pos)
     duped_board = dup
@@ -153,17 +166,18 @@ class Board
     puts "THIS IS DUPED BOARD with one move >>>>>>>>>>>>>>>>>>>"
     duped_board.render
     puts "THIS IS DUPED BOARD with one move>>>>>>>>>>>>>>>>>>>"
-    duped_board.current_player = @game.current_player
+    # duped_board.current_player = current_player
     if duped_board.in_check?
       puts "CAN'T MOVE INTO CHECK"
       return false
+    else
+      return true
     end
-    true
   end
 
   def current_player_pieces
     grid.flatten.select do |square|
-      square.piece? && square.color == @game.current_player
+      square.piece? && square.color == current_player
     end
   end
 

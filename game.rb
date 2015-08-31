@@ -8,6 +8,7 @@ require_relative 'bishop'
 require_relative 'rook'
 require_relative 'board'
 require_relative 'human_player'
+require_relative 'computer_player'
 require 'colorize'
 require 'byebug'
 
