@@ -1,5 +1,7 @@
 require_relative 'sliding_piece'
 
+#this is a test
+
 class Bishop < SlidingPiece
   DIFFS = [[1,1],
                 [-1,1],
