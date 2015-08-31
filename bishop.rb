@@ -4,9 +4,9 @@ require_relative 'sliding_piece'
 
 class Bishop < SlidingPiece
   DIFFS = [[1,1],
-                [-1,1],
-                [1,-1],
-                [-1,-1]]
+          [-1,1],
+          [1,-1],
+          [-1,-1]]
 
   def initialize(color, pos, moved, board)
     super
