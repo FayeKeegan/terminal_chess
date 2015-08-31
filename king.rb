@@ -21,7 +21,7 @@ class King < SteppingPiece
   end
 
   def to_s
-    color == :black ? " \u{2654} " : " \u{265A} "
+    color == :white ? " \u{2654} " : " \u{265A} "
   end
 
 end

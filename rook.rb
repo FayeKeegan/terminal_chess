@@ -11,7 +11,7 @@ class Rook < SlidingPiece
   end
 
   def to_s
-    color == :black  ? " \u{2656} " : " \u{265C} "
+    color == :white  ? " \u{2656} " : " \u{265C} "
   end
 
 end

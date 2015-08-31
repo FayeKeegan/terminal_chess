@@ -15,7 +15,7 @@ class Knight < SteppingPiece
   end
 
   def to_s
-    color == :black ? " \u{2658} " : " \u{265E} "
+    color == :white ? " \u{2658} " : " \u{265E} "
   end
 
 end

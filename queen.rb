@@ -17,7 +17,7 @@ class Queen < SlidingPiece
   end
 
   def to_s
-    color == :black  ? " \u{2655} " : " \u{265B} "
+    color == :white  ? " \u{2655} " : " \u{265B} "
   end
 
 end

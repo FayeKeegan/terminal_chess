@@ -13,7 +13,7 @@ class Bishop < SlidingPiece
   end
 
   def to_s
-    color == :black ? " \u{2657} " : " \u{265D} "
+    color == :white ? " \u{2657} " : " \u{265D} "
   end
 
 end
