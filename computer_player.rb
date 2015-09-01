@@ -21,17 +21,20 @@ class ComputerPlayer
 
   def put_opponent_in_check
   	move = @board.find_move_into_check
-    start_pos, end_pos = move[0], move[1]
-    @board.place_piece(start_pos, end_pos)
+    @board.make_move(move)
   end
 
   def make_capture
   	move = @board.find_best_capture
-    start_pos, end_pos = move[0], move[1]
-    @board.place_piece(start_pos, end_pos)
+    @board.make_move(move)
   end
 
   def make_random_move
+  	move = find_random_move
+    @board.make_move(move)
+  end
+
+  def find_random_move
   	start_pos = nil
     end_pos = nil
   	while start_pos.nil? && end_pos.nil?
@@ -43,7 +46,8 @@ class ComputerPlayer
         end_pos = random_end
       end
     end
-    @board.place_piece(start_pos, end_pos)
+    debugger
+    return [start_pos, end_pos]
   end
-  
+
 end

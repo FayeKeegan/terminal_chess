@@ -65,6 +65,13 @@ class Board
     clear_square(start_pos)
   end
 
+  def make_move(move_array)
+    start_pos, end_pos = move_array[0], move_array[1]
+    debugger
+    place_piece(start_pos, end_pos)
+  end
+
+
   def clear_square(start_pos)
     self[*start_pos] = EmptySquare.new
   end
@@ -81,7 +88,6 @@ class Board
     king = grid.flatten.select do |square|
       square.king? && square.color == current_player
     end
-    # debugger
     king.first.pos
   end
 
