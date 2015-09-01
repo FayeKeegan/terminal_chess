@@ -9,7 +9,30 @@ class ComputerPlayer
   end
 
   def take_turn
-  	
+    start_pos = nil
+    end_pos = nil
+    if @board.find_move_into_check
+      move = @board.find_move_into_check
+      start_pos, end_pos = move[0], move[1]
+    elsif @board.find_best_capture
+    	move = @board.find_best_capture
+      start_pos, end_pos = move[0], move[1]
+    else
+      while start_pos.nil? && end_pos.nil?
+        random_piece = @board.current_player_pieces.sample
+        random_start = random_piece.pos
+        random_end = random_piece.valid_moves.sample
+        debugger
+        if (!random_start.nil? && !random_end.nil?)
+	        if @board.move_into_check?(random_start, random_end)
+	          start_pos = random_start
+	          end_pos = random_end
+	        end
+	      end
+      end
+    end
+    @board.place_piece(start_pos, end_pos)
+    @board.render
   end
 
 end

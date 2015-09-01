@@ -25,7 +25,7 @@ class Game
     @current_player = :white
     @board.current_player = @current_player
     @player1 = HumanPlayer.new(self, :white, @display)
-    @player2 = HumanPlayer.new(self, :black, @display)
+    @player2 = ComputerPlayer.new(self, :black, @display)
     @players = { white: @player1, black: @player2 }
     @cursor_position = @display.cursor_position
   end
