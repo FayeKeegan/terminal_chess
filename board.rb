@@ -145,7 +145,7 @@ class Board
     selected_piece.nil? ? [] : self.selected_piece.valid_moves
   end
 
-  def put_into_check?(start_pos, end_pos)
+  def opponent_in_check?(start_pos, end_pos)
     duped_board = dup
     duped_board.place_piece(start_pos, end_pos)
     duped_board.current_player = other_color
@@ -158,13 +158,11 @@ class Board
   end
 
   def find_move_into_check
-    best_start = nil
-    best_end = nil
-    check_possible = false
+    best_start, best_end, check_possible = nil, nil, false
     current_player_pieces.each do |piece|
       start_pos = piece.pos
       piece.valid_moves.each do |end_pos|
-        if put_into_check?(start_pos, end_pos) && !move_into_check?(start_pos, end_pos)
+        if opponent_in_check?(start_pos, end_pos) && !move_into_check?(start_pos, end_pos)
           check_possible = true
           best_start = start_pos
           best_end = end_pos
@@ -197,13 +195,10 @@ class Board
       piece.valid_moves.each do |end_pos|
         duped_board = dup
         score = duped_board.score_capture(end_pos)
-        if score
+        if (score && score > max_score) && (!move_into_check?(start_pos, end_pos))
           capture_possible = true
-          duped_board.place_piece(start_pos, end_pos)
-          if !duped_board.in_check? && score > max_score
-            best_start = start_pos
-            best_end = end_pos
-          end
+          best_start = start_pos
+          best_end = end_pos
         end
       end
     end
@@ -218,10 +213,9 @@ class Board
     duped_board = dup
     duped_board.place_piece(start_pos,end_pos)
     if duped_board.in_check?
-      puts "CAN'T MOVE INTO CHECK"
-      return false
-    else
       return true
+    else
+      return false
     end
   end
 

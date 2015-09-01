@@ -22,7 +22,7 @@ class HumanPlayer
     begin
       @board.render
       start_pos, end_pos = get_start_and_end_pos
-      raise InCheckError.new unless @board.move_into_check?(start_pos, end_pos)
+      raise InCheckError.new unless !@board.move_into_check?(start_pos, end_pos)
     rescue InCheckError
       puts "CANT PUT INTO CHECK"
       retry
