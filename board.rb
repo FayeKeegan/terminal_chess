@@ -157,6 +157,25 @@ class Board
     end
   end
 
+  def find_move_into_check
+    best_start = nil
+    best_end = nil
+    current_player_pieces.each do |piece|
+        start_pos = piece.pos
+        piece.valid_moves.each do |end_pos|
+          if put_into_check?(start_pos, end_pos)
+            best_start = start_pos
+            best_end = end_pos
+          end
+        end
+      end
+    return [best_start, best_end]
+  end
+
+  def find_best_capture
+    
+  end
+
   def move_into_check?(start_pos, end_pos)
     duped_board = dup
     puts "THIS IS DUPED BOARD >>>>>>>>>>>>>>>>>>>"
