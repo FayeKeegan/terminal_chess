@@ -11,6 +11,7 @@ class Knight < SteppingPiece
             [-1, -2],
             [-1,  2]]
   def initialize(color, pos, moved, board)
+    @points = 3
     super
   end
 

@@ -8,7 +8,10 @@ class Bishop < SlidingPiece
           [1,-1],
           [-1,-1]]
 
+  attr_reader :points
+
   def initialize(color, pos, moved, board)
+    @points = 3
     super
   end
 

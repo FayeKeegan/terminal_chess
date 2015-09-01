@@ -1,6 +1,6 @@
 require 'byebug'
 class Piece
-  attr_accessor :color, :pos, :board, :moved
+  attr_accessor :color, :pos, :board, :moved, :points
 
   def initialize(color, pos, moved=false, board)
     @color, @pos, @moved, @board = color, pos, moved, board

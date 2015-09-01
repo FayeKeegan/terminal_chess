@@ -13,6 +13,7 @@ class Queen < SlidingPiece
                 [-1,-1]]
 
   def initialize(color, pos, moved, board)
+    @points = 9
     super
   end
 

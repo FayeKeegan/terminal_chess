@@ -6,6 +6,7 @@ class Pawn < Piece
   attr_reader :valid_moves, :dir
 
   def initialize(color, pos, moved, board)
+    @points = 1
     super
     @dir = color == :white ? -1 : 1
   end

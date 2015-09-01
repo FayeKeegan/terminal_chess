@@ -7,6 +7,7 @@ class Rook < SlidingPiece
           [-1,0],
           [0,-1]]
   def initialize(color, pos, moved, board)
+    @points = 5
     super
   end
 
