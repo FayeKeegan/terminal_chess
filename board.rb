@@ -163,7 +163,7 @@ class Board
     current_player_pieces.each do |piece|
         start_pos = piece.pos
         piece.valid_moves.each do |end_pos|
-          if put_into_check?(start_pos, end_pos)
+          if put_into_check?(start_pos, end_pos) && !move_into_check(start_pos, end_pos)
             best_start = start_pos
             best_end = end_pos
           end
@@ -172,20 +172,39 @@ class Board
     return [best_start, best_end]
   end
 
+  def score_capture(end_pos)
+    score = nil
+    end_square = self[*end_pos]
+    if opponents_pieces.include?(end_square)
+      score = end_square.points
+    end
+    score
+  end
+
   def find_best_capture
-    
+    best_start = nil
+    best_end = nil
+    max_score = 0
+    current_player_pieces.each do |piece|
+      start_pos = piece.pos
+      piece.valid_moves.each do |end_pos|
+        duped_board = dup
+        score = duped_board.score_capture(end_pos)
+        if score
+          duped_board.place_piece(start_pos, end_pos)
+          if !duped_board.in_check? && score > max_score
+            best_start = start_pos
+            best_end = end_pos
+          end
+        end
+      end
+    end
+    [best_start,best_end]
   end
 
   def move_into_check?(start_pos, end_pos)
     duped_board = dup
-    puts "THIS IS DUPED BOARD >>>>>>>>>>>>>>>>>>>"
-    duped_board.render
-    puts "THIS IS DUPED BOARD >>>>>>>>>>>>>>>>>>>"
     duped_board.place_piece(start_pos,end_pos)
-    puts "THIS IS DUPED BOARD with one move >>>>>>>>>>>>>>>>>>>"
-    duped_board.render
-    puts "THIS IS DUPED BOARD with one move>>>>>>>>>>>>>>>>>>>"
-    # duped_board.current_player = current_player
     if duped_board.in_check?
       puts "CAN'T MOVE INTO CHECK"
       return false
