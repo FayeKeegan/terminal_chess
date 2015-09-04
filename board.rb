@@ -67,7 +67,6 @@ class Board
 
   def make_move(move_array)
     start_pos, end_pos = move_array[0], move_array[1]
-    debugger
     place_piece(start_pos, end_pos)
   end
 

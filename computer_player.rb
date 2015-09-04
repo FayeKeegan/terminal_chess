@@ -46,7 +46,6 @@ class ComputerPlayer
         end_pos = random_end
       end
     end
-    debugger
     return [start_pos, end_pos]
   end
 
